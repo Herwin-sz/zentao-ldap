@@ -15,6 +15,17 @@ class ldapModel extends model
     {
         $ret = '';
     	$ds = ldap_connect($host);
+        $config = $this->config->ldap;
+        if ($ds) {
+            ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
+            ldap_bind($ds, $config->bindDN, $config->bindPWD);
+
+            $attrs = array($config->uid, "dn");
+
+            $rlt = ldap_search($ds, $config->baseDN, "(uid=$dn)", $attrs);
+            $info = ldap_get_entries($ds, $rlt);
+            $dn = $info[0]["dn"];
+        }
     	if ($ds) {
     		ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
     		ldap_bind($ds, $dn, $pwd);
@@ -35,7 +46,7 @@ class ldapModel extends model
             ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
             ldap_bind($ds, $config->bindDN, $config->bindPWD);
 
-            $attrs = [$config->uid, $config->mail, $config->name];
+            $attrs = array($config->uid, $config->mail, $config->name);
 
             $rlt = ldap_search($ds, $config->baseDN, $config->searchFilter, $attrs);
             $data = ldap_get_entries($ds, $rlt);

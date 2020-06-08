@@ -1,9 +1,9 @@
 ---
-name: 禅道开源版 11.5 LDAP插件
+name: 禅道开源版 12.3.1 LDAP插件
 code: ldap
 type: extension
-site: https://github.com/shynome/zentao-ldap
-author: 'shynome<shynome@gmail.com>'
+site: https://github.com/herwin.sz/zentao-ldap
+
 abstract: >
   支持从LDAP服务器上同步用户信息（账号、真实姓名、邮箱），以及使用LDAP验证登录。
 desc: >
@@ -13,12 +13,21 @@ desc: >
   4.同步用户信息以后，可以使用LDAP用户登录禅道
   5.本地用户，通过在账户名称前加“$”符号来登录禅道
 install: |
-  1. 通过禅道的插件管理来进行安装。
-    1.1 使用管理员身份登录禅道，访问插件管理。
-    1.2 打开获得插件页面，搜索找到本插件。
-    1.3 选择自动安装，按照页面提示即可。
-  2. 手工安装，将代码解压缩，然后将目录拷贝到禅道对应的目录，比如module拷贝到zentao的module。
+  1.将代码解压缩，然后将目录拷贝到禅道对应的目录，比如module拷贝到zentao的module。
+  2.请确保PHP运行用户对ldap/config.php有读写权限。
 releases:
+  1.3.1
+    zentao:
+      compatible: 12.3.1
+      incompatible:
+    charge: free
+    date: 2020.06.07
+    conflicts: null
+    depends: null
+    license: LGPL
+    changelog: >
+      1. 支持开源12.3.1版本
+      2. 支持组织架构子用户认证
   1.3.0
     zentao:
       compatible: 11.5.stable

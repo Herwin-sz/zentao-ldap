@@ -85,7 +85,8 @@ class ldap extends control
     public function identify($user, $pwd)
     {
         $ret = false;
-        $account = $this->config->ldap->uid.'='.$user.','.$this->config->ldap->baseDN;
+//        $account = $this->config->ldap->uid.'='.$user.','.$this->config->ldap->baseDN;
+        $account = $user;
         if (0 == strcmp('Success', $this->ldap->identify($this->config->ldap->host, $account, $pwd))) {
             $ret = true;
         }
