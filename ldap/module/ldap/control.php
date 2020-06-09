@@ -73,7 +73,21 @@ class ldap extends control
 
     public function test()
     {
-        echo $this->ldap->identify($this->post->host, $this->post->dn, $this->post->pwd);
+//        echo $this->ldap->identify($this->post->host, $this->post->dn, $this->post->pwd);
+
+        $ret = '';
+        $ds = ldap_connect($this->post->host);
+        if ($ds) {
+                ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
+                ldap_bind($ds, $this->post->dn, $this->post->pwd);
+
+            $ret = ldap_error($ds);
+                ldap_close($ds);
+        }  else {
+            $ret = ldap_error($ds);
+        }
+        echo $ret;
+
     }
 
     public function sync()
